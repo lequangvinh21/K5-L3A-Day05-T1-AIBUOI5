@@ -1,13 +1,13 @@
 # Bài nộp LAB5 — T1 · Y tế · Nhóm AIBUOI5
 
-**Lớp:** L3A · **Bàn / zone:** ____ · **Track:** T1 — Y tế (kênh chat "Hỏi dược sĩ" của Pharmacity) · **Ngày lab:** 12/11/2026
+**Lớp:** L3A · **Bàn / zone:** C3 · **Track:** T1 — Y tế (kênh chat "Hỏi dược sĩ" của Pharmacity) · **Ngày lab:** 12/11/2026
 
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
-|  *(nhóm trưởng)* |  | Tổng hợp `spec.md` · §1 (3 việc không làm) · §2 (12 kịch bản, khoanh 2 ca đắt nhất) · §6 (3 tiêu chí Pass/Fail) · bảng thành viên, deadline, nộp link repo |
-|  |  | §3 — câu AI nói nguyên văn + UX khi AI sai cho S3/S4 · phân loại lỗi · HAX/PAIR trỏ chỗ cụ thể |
-|  |  | §4 — mức tự chủ 5 tool theo cost-of-error · tool khó xếp nhất · thử mức trên 3 kịch bản · lời hứa đã đổi |
-|  |  | §5 — giữ prototype `index.html` + 2 ảnh đánh số · bấm thử mọi luồng · tạo repo GitHub, push, kiểm tra ẩn danh, nộp link |
+| Lê Quang Vinh *(nhóm trưởng)* | 2A202603363 | Tổng hợp `spec.md` · §1 (3 việc không làm) · §2 (12 kịch bản, khoanh 2 ca đắt nhất) · §6 (3 tiêu chí Pass/Fail) · bảng thành viên, deadline, nộp link repo |
+| Bùi Quang Huy | 2A202603469 | §3 — câu AI nói nguyên văn + UX khi AI sai cho S3/S4 · phân loại lỗi · HAX/PAIR trỏ chỗ cụ thể |
+| Hoàng Bảo Nguyên | 2A202603384 | §4 — mức tự chủ 5 tool theo cost-of-error · tool khó xếp nhất · thử mức trên 3 kịch bản · lời hứa đã đổi |
+| Hoàng Minh Huy | 2A202603495 | §5 — giữ prototype `index.html` + 2 ảnh đánh số · bấm thử mọi luồng · tạo repo GitHub, push, kiểm tra ẩn danh, nộp link |
 
 > Copy bảng này từ README repo đề bài và điền cụ thể việc mỗi người làm (ví dụ: dựng prototype · viết §2–§3 · giữ bảng kịch bản, §4 và kịch bản demo). Ai cũng phải giải thích được phần có tên mình.
 
@@ -114,6 +114,6 @@ Chấm thử thiết kế của nhóm trên 2 kịch bản đắt nhất: **S3 �
 
 ## §7. Demo
 
-- **Phân công trình bày (4 thành viên, mỗi người một phần):** **nhóm trưởng** mở đầu — lát cắt trong 30 giây, dẫn vào ca khó S4, trả lời "hành động này sai thì ai mất gì" · **[thành viên §3]** giải thích khối cảnh báo (số 2), dòng "Vì sao" (số 3), nút dược sĩ (số 4) trên ca S4 · **[thành viên §4]** ca S2 — cổng sàng lọc (số 5–6), bảng 5 tool (số 10), giải thích mức tự chủ của `goi_y_san_pham` + lời hứa đã đổi · **[thành viên §5/prototype]** bấm prototype theo kịch bản, ca S5 mức cấm (số 8), bật mức ③ chỉ rủi ro, nói rõ phần nào mock.
+- **Phân công trình bày (4 thành viên, mỗi người một phần):** **Lê Quang Vinh (nhóm trưởng)** mở đầu — lát cắt trong 30 giây, dẫn vào ca khó S4, trả lời "hành động này sai thì ai mất gì" · **Bùi Quang Huy (§3)** giải thích khối cảnh báo (số 2), dòng "Vì sao" (số 3), nút dược sĩ (số 4) trên ca S4 · **Hoàng Bảo Nguyên (§4)** ca S2 — cổng sàng lọc (số 5–6), bảng 5 tool (số 10), giải thích mức tự chủ của `goi_y_san_pham` + lời hứa đã đổi · **Hoàng Minh Huy (§5/prototype)** bấm prototype theo kịch bản, ca S5 mức cấm (số 8), bật mức ③ chỉ rủi ro, nói rõ phần nào mock.
 - **Câu TA có thể hỏi — trả lời sẵn:** "Hành động này sai thì ai mất gì?" (mỗi tool: xem cột cost-of-error ở §4) · "Chỉ cho tôi chỗ nào trên màn hình là G10 / G11 / Graceful Failure?" (số 5 / số 3+6 / số 2+4).
 - **Ca lạ nhận được ở demo:** *(điền sau buổi demo — ca gì, prototype đã làm gì, nhóm có đổi ý gì không).*
