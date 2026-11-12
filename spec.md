@@ -9,11 +9,10 @@
 | Hoàng Bảo Nguyên | 2A202603384 | §4 — mức tự chủ 5 tool theo cost-of-error · tool khó xếp nhất · thử mức trên 3 kịch bản · lời hứa đã đổi |
 | Hoàng Minh Huy | 2A202603495 | §5 — giữ prototype `index.html` + 2 ảnh đánh số · bấm thử mọi luồng · tạo repo GitHub, push, kiểm tra ẩn danh, nộp link |
 
-> Copy bảng này từ README repo đề bài và điền cụ thể việc mỗi người làm (ví dụ: dựng prototype · viết §2–§3 · giữ bảng kịch bản, §4 và kịch bản demo). Ai cũng phải giải thích được phần có tên mình.
 
 ## §1. Lát cắt & phạm vi
 
-- **Lát cắt (chép từ track T1):** Trong **kênh chat Hỏi dược sĩ của Pharmacity**, khi **khách** đang nhắn hỏi "tôi (hoặc người nhà) bị X, có thuốc gì không", **AI tự trả lời và gợi ý sản phẩm, hỏi thêm câu sàng lọc, hay chuyển dược sĩ, khuyên đi khám ngay**, để người dùng thuốc không nhận sai sản phẩm và ca nguy hiểm không nằm trong hàng chờ.
+- **Lát cắt :** Trong **kênh chat Hỏi dược sĩ của Pharmacity**, khi **khách** đang nhắn hỏi "tôi (hoặc người nhà) bị X, có thuốc gì không", **AI tự trả lời và gợi ý sản phẩm, hỏi thêm câu sàng lọc, hay chuyển dược sĩ, khuyên đi khám ngay**, để người dùng thuốc không nhận sai sản phẩm và ca nguy hiểm không nằm trong hàng chờ.
 - **3 việc tính năng KHÔNG làm:**
   1. **Không tư vấn liều lượng, không đề xuất "uống thêm / loại mạnh hơn"** — liều phụ thuộc tuổi, cân nặng, thuốc đang dùng; AI không có dữ liệu đó, và sai liều với thuốc đã uống là không đảo lại được (rubric riêng T1, mục 6).
   2. **Không bán và không gợi ý "thuốc thay thế" cho thuốc kê đơn** (`ban_thuoc_ke_don` — đảo lại: **Không**) — ngoài thẩm quyền của cả AI lẫn dược sĩ trực khi chưa có đơn hợp lệ (rubric riêng T1, mục 5).
