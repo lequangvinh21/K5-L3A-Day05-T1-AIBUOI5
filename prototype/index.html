@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prototype · T1 Y tế — Hỏi dược sĩ: AI trả lời đầu tiên</title>
+<style>
+:root{--ink:#152a21;--mut:#5e6f66;--line:#d5e0d8;--bg:#edf3ef;--card:#fff;--g:#0e7a5f;--gb:#e0f1ea;--a:#7a5400;--ab:#fbf0d3;--r:#b3261e;--rb:#fae6e4;--b:#1f4e79;--bb:#e5eef8}
+*{box-sizing:border-box}body{margin:0;font-family:"Be Vietnam Pro","Noto Sans","Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.45}
+header{padding:16px 26px 10px;border-bottom:1px solid var(--line);background:#fff}
+h1{font-size:19px;margin:0 0 4px}.sub{color:var(--mut);font-size:13.5px;max-width:1080px}
+.ctrl{display:flex;gap:8px;margin:12px 0 4px;flex-wrap:wrap;align-items:center}
+.ctrl .lbl{font-size:13px;color:var(--mut);margin-right:2px;font-weight:600}
+.ctrl button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;cursor:pointer}
+.ctrl button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.ctrl .grp{display:flex;gap:8px;align-items:center;margin-right:16px;flex-wrap:wrap}
+main{display:grid;grid-template-columns:400px 1fr;gap:22px;padding:18px 26px 10px;max-width:1330px}
+.phone{background:#fff;border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:0 2px 12px rgba(20,42,33,.06)}
+.bar{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);padding:0 6px 8px;border-bottom:1px solid var(--line)}
+.brand{margin:9px 4px 0;font-size:13.5px;font-weight:700;color:var(--g)}
+.ailabel{margin:4px 4px 6px;padding:8px 10px;border-radius:10px;background:var(--bb);font-size:12.5px;color:#274b6d}
+.chat{display:flex;flex-direction:column;gap:9px;padding:4px 2px 6px;min-height:430px}
+.me{align-self:flex-end;background:var(--g);color:#fff;padding:9px 12px;border-radius:14px 14px 2px 14px;max-width:86%}
+.ai{align-self:flex-start;background:#f0f4f1;padding:10px 12px;border-radius:14px 14px 14px 2px;max-width:95%}
+.ai .who{font-size:12px;color:var(--mut);margin-bottom:3px}
+.alert{background:var(--rb);border:1.5px solid #e3aaa5;border-radius:12px;padding:10px 12px}
+.alert .t{font-weight:800;color:var(--r);font-size:15px}
+.why{margin-top:6px;font-size:13.5px}.why b{color:var(--a)}
+.ev{font-size:12.5px;color:var(--mut);border-left:3px solid var(--line);padding-left:8px;margin-top:7px}
+.opt{border:1.5px solid var(--line);border-radius:11px;padding:7px 10px;margin-top:7px;background:#fff;font-size:13.5px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.opt.sel{border-color:var(--g);background:var(--gb)}
+.opt small{color:var(--mut)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{border:1.5px solid var(--g);color:var(--g);background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13.5px;cursor:pointer}
+.chip:hover{background:var(--gb)}
+.chip.done{border-color:var(--g);background:var(--gb);cursor:default;font-weight:700}
+.card{border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;margin-top:7px;background:#fff}
+.card b{display:block}
+.card small{color:var(--mut)}
+.btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.btn{border:0;border-radius:9px;padding:8px 12px;font:inherit;font-size:13.5px;cursor:pointer;background:#e6ebe7}
+.btn.pri{background:var(--g);color:#fff}.btn.out{background:#fff;border:1.5px solid var(--ink)}.btn.danger{background:var(--r);color:#fff}
+.risk{margin-top:8px;background:var(--rb);border:1px solid #e3aaa5;border-radius:11px;padding:8px 10px;font-size:13px}
+.note{margin-top:6px;font-size:12.5px;color:var(--mut)}
+.consent{margin-top:9px;padding:8px 10px;border:1px dashed var(--line);border-radius:10px;font-size:13.5px}
+.n{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;background:#c2410c;color:#fff;font-size:11.5px;font-weight:700;margin-right:4px;vertical-align:1px;flex:none;padding:0 4px}
+.hide-n .n{display:none}
+aside{display:flex;flex-direction:column;gap:13px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.panel h2{font-size:15px;margin:0 0 7px}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}th{color:var(--mut);font-weight:600}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.p-auto{background:var(--gb);color:var(--g)}.p-ask{background:var(--ab);color:var(--a)}.p-no{background:var(--rb);color:var(--r)}
+.changed td{background:#fffaf0}
+.promise{font-size:14.5px;border-left:4px solid var(--g);padding:6px 10px;background:#f7faf8}
+.pcase{border:1.5px solid var(--line);border-radius:11px;padding:9px 11px;font-size:13.5px}
+.pcase.hot{border-color:#e3aaa5;background:#fff8f7}
+.ann{padding-left:0;list-style:none;margin:0}.ann li{margin-bottom:5px;font-size:13px}
+.empty{color:var(--mut);font-size:13.5px}
+.foot{font-size:12px;color:var(--mut);padding:6px 26px 18px;max-width:1330px}
+label{font-size:13.5px}
+</style></head>
+<body>
+<header>
+ <h1>Prototype · T1 Y tế — kênh “Hỏi dược sĩ”: AI trả lời đầu tiên, lúc không chắc thì dừng</h1>
+ <div class="sub">Cùng một ca, chỉ đổi <b>mức tự chủ của tool <code>goi_y_san_pham</code></b>. Dữ liệu dựng theo track T1; Pharmacity chỉ là sản phẩm tham khảo. Mức <b>② là mức nhóm chọn</b>. Số cam là chú thích HAX/PAIR bấm vào từng chỗ trên màn hình.</div>
+ <div class="ctrl">
+  <div class="grp"><span class="lbl">Ca demo:</span>
+   <button data-c="s4" class="on">S4 · bé 2 tuổi sốt cao, lơ mơ (ca khó)</button>
+   <button data-c="s2">S2 · đau họng 2 ngày (cổng sàng lọc)</button>
+   <button data-c="s5">S5 · xin kháng sinh không đơn (cấm)</button>
+  </div>
+  <div class="grp"><span class="lbl">Mức <code>goi_y_san_pham</code>:</span>
+   <button data-l="1">① AI không gợi ý thuốc</button>
+   <button data-l="2" class="on">② Cổng sàng lọc — nhóm chọn</button>
+   <button data-l="3">③ Gợi ý ngay, không hỏi</button>
+  </div>
+  <label><input type="checkbox" id="ann" checked> Số chú thích</label>
+ </div>
+</header>
+<main>
+ <section class="phone">
+  <div class="bar"><span>Pharmacity · Hỏi dược sĩ</span><span>21:46</span></div>
+  <div class="brand">💬 Chat với dược sĩ</div>
+  <div class="ailabel"><span class="n">1</span><b>Trợ lý AI</b> — việc mình làm: thông tin, câu hỏi sàng lọc, cảnh báo đi khám, chuyển dược sĩ. Việc của dược sĩ: tư vấn thuốc cho từng người. Mình không tư vấn liều qua chat.</div>
+  <div class="chat" id="chat"></div>
+ </section>
+ <aside>
+  <div class="panel"><h2>Lời hứa với khách ở mức này</h2><div class="promise" id="promise"></div></div>
+  <div class="panel"><h2>Mức tự chủ của 5 tool <span style="font-weight:400;color:var(--mut)">(dòng tô vàng đang đổi)</span></h2>
+   <table><tr><th>Tool</th><th>Mức</th><th>Vì sao (cái giá khi sai)</th></tr><tbody id="tools"></tbody></table></div>
+  <div class="panel"><h2>Màn hình dược sĩ (nhận ca được chuyển)</h2><div id="pharm"></div></div>
+  <div class="panel"><h2>Chú thích: nguyên tắc nào nằm ở đâu</h2><ul class="ann" id="annlist"></ul></div>
+ </aside>
+</main>
+<div class="foot">LAB5 · AI20K K5 · T1 Y tế · dữ liệu dựng để học — không phải tư vấn y khoa thật · không gọi AI thật · không gửi dữ liệu đi đâu.</div>
+<script>
+const $=s=>document.querySelector(s);
+const Q=new URLSearchParams(location.search);
+let c=Q.get('case')||'s4', L=+(Q.get('level')||2), stage=Q.get('stage')||'start';
+let a1=null,a2=null,saved=false,accepted=false;
+if(Q.get('ann')==='0'){$('#ann').checked=false;document.body.classList.add('hide-n')}
+if(c==='s2'&&['suggested','saved','transferred'].includes(stage)&&!a1){a1='me'}
+if(c==='s2'&&['suggested','saved'].includes(stage)&&!a2){a2='none'}
+if(c==='s2'&&stage==='saved'){saved=true}
+function me(x){return `<div class="me">${x}</div>`}
+function ai(x){return `<div class="ai"><div class="who">Trợ lý AI · Hỏi dược sĩ</div>${x}</div>`}
+const EV_S4='<div class="ev"><b>Dựa vào:</b> đúng tin nhắn bạn vừa gửi — mình không suy đoán thêm gì về người và thuốc.</div>';
+function chat(){
+ let h='';
+ const M4='Bé nhà mình 2 tuổi, sốt 39,5 độ từ tối qua, đã cho uống paracetamol rồi mà giờ cứ lơ mơ li bì. Có loại nào mạnh hơn không?';
+ const M2='Họng mình đau rát 2 ngày nay, có thuốc gì không?';
+ const M5='Viêm họng nặng quá, cho mình đặt Amoxicillin 500 luôn, khỏi cần đơn nhé.';
+ if(c==='s4'){
+  h=me(M4);
+  if(L<=2){
+   h+=ai(`<div class="alert"><div class="t"><span class="n">2</span>Đưa bé đi khám ngay — cơ sở nhi hoặc cấp cứu gần nhất</div>
+    <div class="why"><span class="n">3</span><b>Vì sao:</b> bé 2 tuổi · sốt cao <b>đã uống thuốc</b> mà vẫn <b>lơ mơ li bì</b> — dấu hiệu cần bác sĩ ngay, không phải cần thuốc “mạnh hơn”.</div>${EV_S4}
+    <div style="margin-top:7px">Mình <b>không</b> gợi ý thuốc và không tư vấn liều cho trẻ qua chat. Trong lúc chuẩn bị đi: cho bé mặc mỏng, theo dõi hơi thở; không đắp chăn, không lau rượu.</div>
+    <div class="btns"><button class="btn pri" onclick="to('transferred')"><span class="n">4</span>Nói chuyện với dược sĩ ngay</button><button class="btn danger">Gọi 115 (nếu bé khó thở)</button></div></div>`);
+   if(stage==='transferred'){h+=ai('Đã chuyển. Dược sĩ trực nhận sau <b>~2 phút</b> và <b>thấy sẵn tóm tắt</b> (khung “Màn hình dược sĩ” bên phải) — bạn không phải kể lại điều gì.')}
+  }else{
+   h+=ai(`Mình gửi bạn gợi ý ngay:<div class="card"><b>Hạ sốt paracetamol (siro, hương cam)</b><small>thuốc không kê đơn · giao trong 2 giờ</small><div class="btns"><button class="btn pri">Đặt ngay</button></div></div><div class="note">Bộ phận chăm sóc khách sẽ gọi xác nhận đơn.</div>`);
+   h+=ai(`<div class="risk"><b>Rủi ro của mức này:</b> “lơ mơ li bì” ở trẻ sốt cao là dấu hiệu đi khám ngay. Một thẻ thuốc giữ gia đình ở nhà thêm — sai <b>không đảo lại được</b>. Mức ③ không có cổng sàng lọc nên không bắt được 3 cờ đỏ ẩn trong tin nhắn: trẻ nhỏ · đã dùng thuốc không đỡ · đòi “mạnh hơn”.</div>`);
+  }
+ }else if(c==='s2'){
+  h=me(M2);
+  if(L===1){
+   h+=ai(`Câu thuốc cụ thể mình nhường <b>dược sĩ trực</b> — mình chuyển giúp bạn nhé, khoảng 2–3 phút.<div class="btns"><button class="btn pri" onclick="to('transferred')"><span class="n">4</span>Nói chuyện với dược sĩ</button></div><div class="note">Mức ①: an toàn nhất, nhưng ca đơn giản cũng phải chờ (kịch bản S12) — cái giá của việc không tin AI chút nào.</div>`);
+   if(stage==='transferred'){h+=ai('Đã chuyển — dược sĩ thấy sẵn tin nhắn của bạn.')}
+  }else if(L===2){
+   const c1=[['me','Cho mình — người lớn'],['kid','Cho bé / trẻ em'],['preg','Người mang thai / cho con bú'],['old','Cho bố mẹ lớn tuổi'],['other','Khác / không chắc']];
+   const l1={me:'người lớn',kid:'trẻ em',preg:'người mang thai / cho con bú',old:'người cao tuổi',other:'người bạn chưa nói rõ'}[a1];
+   h+=ai(`<span class="n">5</span>Trước khi gợi ý, mình hỏi nhanh <b>một câu</b>: thuốc này <b>cho ai</b> dùng?<div class="chips">${stage==='start'?c1.map(x=>`<button class="chip" onclick="ans1('${x[0]}')">${x[1]}</button>`).join(''):c1.map(x=>`<span class="chip ${x[0]===a1?'done':''}" style="${x[0]===a1?'':'opacity:.45;border-color:var(--line);color:var(--mut)'}">${x[1]}</span>`).join('')}</div>`);
+   if(['ask2','suggested','saved'].includes(stage)){
+    h+=ai(`Tiếp một câu nữa: bạn có đang <b>mang thai / cho con bú</b>, đang dùng thuốc theo toa, hoặc có <b>bệnh mãn tính, dị ứng</b> nào không?<div class="chips">${a2?`<span class="chip ${a2==='none'?'done':''}" style="${a2==='none'?'':'opacity:.45;border-color:var(--line);color:var(--mut)'}">Không có gì cả</span><span class="chip ${a2==='yes'?'done':''}" style="${a2==='yes'?'':'opacity:.45;border-color:var(--line);color:var(--mut)'}">Có, để mình nói</span>`:`<button class="chip" onclick="ans2('none')">Không có gì cả</button><button class="chip" onclick="ans2('yes')">Có, để mình nói</button>`}</div>`);
+   }
+   if(a1&&a1!=='me'&&stage==='transferred'){
+    h+=ai(`Người dùng thuốc là <b>${l1}</b> — phần này dược sĩ trả lời mới chắc. Mình chuyển bạn ngay, kèm sẵn câu bạn vừa trả lời.`);
+   }
+   if(a2==='yes'&&stage==='transferred'){h+=ai('Có thuốc đang dùng / bệnh nền thì để <b>dược sĩ</b> chọn cho chắc — mình chuyển bạn, kèm câu bạn vừa trả lời.')}
+   if(['suggested','saved'].includes(stage)&&a2==='none'){
+    h+=ai(`<span class="n">6</span>Đủ căn cứ rồi — gợi ý cho <b>người lớn, không có cảnh báo</b>:<div class="card"><b>① Viên ngậm họng (không đường)</b><small>ngày ngậm 4–6 lần theo nhãn</small></div><div class="card"><b>② Dung dịch súc miệng sát khuẩn</b><small>đọc kỹ hướng dẫn trên nhãn</small></div>
+     <div class="ev"><b>Dựa vào:</b> đau họng 2 ngày · người trưởng thành · không thai kỳ / cho con bú · không thuốc đang dùng · không bệnh mãn, dị ứng.</div>
+     <div class="note">Liều thế nào: mình <b>không tư vấn liều qua chat</b> — đọc nhãn hoặc hỏi dược sĩ khi nhận hàng.</div>
+     <div class="btns"><button class="btn pri">Đặt 2 món</button><button class="btn out" onclick="to('transferred')"><span class="n">4</span>Hỏi dược sĩ trước</button></div>
+     <div class="consent"><span class="n">7</span><label><input type="checkbox" ${saved?'checked':''} onchange="this.checked?save():unsave()"> Lưu các câu trả lời sàng lọc cho lần sau khỏi hỏi lại?</label>${saved?'<div class="btns"><button class="btn" onclick="unsave()">Xoá ghi chú</button></div>':''}</div>`);
+   }
+  }else{
+   h+=ai(`Với người lớn khoẻ mạnh, đau họng 2 ngày — mình gợi ý:<div class="card"><b>Viên ngậm họng (không đường)</b><small>thuốc không kê đơn</small><div class="btns"><button class="btn pri">Đặt ngay</button></div></div>`);
+   h+=ai(`<div class="risk"><b>Rủi ro của mức này:</b> tin nhắn không hề nói <b>ai dùng thuốc</b> (S2). Nếu người dùng thật là bé (S7), người cao tuổi (S8) hay thai phụ (S9) — thẻ người lớn này sai đối tượng, và không một câu nào được hỏi trước khi thẻ tới tay khách.</div>`);
+  }
+ }else{
+  h=me(M5);
+  h+=ai(`Mình <b>không đặt được</b> thuốc này: <b>Amoxicillin là thuốc kê đơn</b> — cần đơn bác sĩ còn hiệu lực, không phải vì bạn thiếu bước nào đâu. Kháng sinh cũng không phải lúc nào cũng cần cho viêm họng. Hai đường mình giúp được:<div class="btns"><button class="btn pri" onclick="to('transferred')"><span class="n">4</span>Chuyển dược sĩ — giải thích &amp; chỉ đường khám nhanh</button><button class="btn out" onclick="setCase('s2')"><span class="n">8</span>Xem thuốc <b>không kê đơn</b> giảm đau họng</button></div><div class="note"><span class="n">8</span>Mức <b>cấm</b>: không có nút đặt thuốc kê đơn ở bất kỳ đâu trên giao diện — ở mọi mức tự chủ.</div>`);
+  if(stage==='transferred'){h+=ai('Đã chuyển — dược sĩ sẽ giải thích vì sao cần đơn và chỉ đường khám nhanh nhất.')}
+ }
+ $('#chat').innerHTML=h;
+}
+function tools(){
+ const gl={1:['Cấm (chuyển hết)','p-no','Mọi câu thuốc đến dược sĩ. An toàn nhất; ca đơn giản cũng phải chờ vài phút (S12).'],2:['Tự làm sau cổng','p-auto','Cổng xanh: gợi ý nhầm cho người trưởng thành khoẻ → nhãn thuốc + dược sĩ quầy vẫn chặn cuối đường. Cổng đỏ / thiếu thông tin: tool không gọi được (S3, S4).'],3:['Tự làm, không cổng','p-no','Nhanh nhất cho người lớn khoẻ; sai đối tượng là S2/S8/S9 và bỏ sót cờ đỏ là S3/S4 — không đảo lại được.']}[L];
+ const T=[['khuyen_di_kham','Tự làm','p-auto','Thừa: khách bỏ qua được. Thiếu: mạng người (S3, S4).'],['chuyen_duoc_si','Tự làm','p-auto','Đảo được, tốn vài phút; chuyển kèm tóm tắt để dược sĩ khỏi đọc lại.'],['goi_y_san_pham',gl[0],gl[1],gl[2],1],['luu_ghi_chu_suc_khoe','Cần đồng ý','p-ask','Lưu nhầm: “đã có rủi ro lộ” dù xoá được. Không lưu: hỏi lại 30 giây.'],['ban_thuoc_ke_don','Cấm','p-no','Không đảo lại; thiếu đơn hợp lệ thì không ai được bán — AI lẫn dược sĩ.']];
+ $('#tools').innerHTML=T.map(r=>`<tr class="${r[4]?'changed':''}"><td><code>${r[0]}</code></td><td><span class="pill ${r[2]}">${r[1]}</span></td><td>${r[3]}</td></tr>`).join('');
+ $('#promise').innerHTML={1:'<b>“Mình không gợi ý thuốc — mọi câu thuốc do dược sĩ trực trả lời.”</b> An toàn nhất, nhưng khách đang cần câu đơn giản (nước muối, viên ngậm) cũng phải chờ vài phút.',
+ 2:'<b>“Mình chỉ gợi ý khi biết đủ về người dùng thuốc.”</b> Trẻ em, thai kỳ, người đang dùng thuốc khác, dấu hiệu bất thường — dược sĩ trả lời bạn ngay. Mức nhóm chọn.',
+ 3:'<b>“Mình trả lời thuốc ngay, không cần hỏi.”</b> Nhanh cho người lớn khoẻ mạnh; nguy hiểm khi người dùng thật không phải người nhắn (S2, S8, S9) hoặc tin nhắn có cờ đỏ (S3, S4).'}[L];
+}
+function pharm(){
+ let h='';
+ const acc=accepted?'<div class="btns"><button class="btn pri" disabled style="opacity:.6">✓ Đã nhận ca</button></div>':'<div class="btns"><button class="btn pri" onclick="accepted=true;pharm()">Nhận ca</button></div>';
+ if(c==='s4'&&L<=2&&stage==='transferred'){
+  h=`<div class="pcase hot"><b>Ca ưu tiên · 21:48</b><br><b>Bé 2 tuổi</b> · sốt 39,5° từ tối qua · <b>ĐÃ UỐNG paracetamol — liều / giờ chưa rõ → CẦN HỎI</b> · lơ mơ li bì · mẹ xin “thuốc mạnh hơn”.<br><i>AI đã khuyến cáo khám ngay.</i><br><b>Dược sĩ hỏi thêm:</b> liều &amp; giờ uống gần nhất · bé có khó thở không.</div>${acc}`;
+ }else if(c==='s2'&&stage==='transferred'&&a1&&a1!=='me'){
+  const l1={kid:'trẻ em',preg:'người mang thai / cho con bú',old:'người cao tuổi',other:'người chưa rõ'}[a1];
+  h=`<div class="pcase"><b>Ca thường · 21:49</b><br>Đau họng 2 ngày · người dùng thuốc là <b>${l1}</b> — AI đã hỏi sàng lọc và chuyển vì thuộc nhóm cần dược sĩ (rubric T1 mục 2). Khách không phải kể lại.</div>${acc}`;
+ }else if(c==='s5'&&stage==='transferred'){
+  h=`<div class="pcase"><b>Ca thường · 21:50</b><br>Khách xin <b>Amoxicillin không đơn</b> — AI đã từ chối kèm giải thích. Dược sĩ giải thích thêm + chỉ đường khám.</div>${acc}`;
+ }else if(c==='s4'&&L===3){
+  h='<div class="empty">Không có ca chuyển: mức ③ tự gửi thẻ — <b>ca cờ đỏ này không bao giờ đến được dược sĩ</b>. Đây chính là cái giá của mức này.</div>';
+ }else{
+  h='<div class="empty">Chưa có ca chuyển — bấm “Nói chuyện với dược sĩ” trong chat để thấy ca dược sĩ nhận, kèm tóm tắt.</div>';
+ }
+ $('#pharm').innerHTML=h;
+}
+function ann(){
+ const A=[
+  [1,'HAX G1/G2 · làm rõ AI làm được gì','Nhãn đầu chat: đây là trợ lý AI, việc mình làm / không làm — khớp yêu cầu minh bạch (Điều 11 khoản 1, Luật TTNT 134/2025/QH15).',true],
+  [2,'PAIR Errors + Graceful Failure','Khối cảnh báo đỏ nổi riêng khỏi bong bóng chat: một loại lỗi, một hình thức — hành động khẩn không bị chìm trong lời.',c==='s4'&&L<=2],
+  [3,'HAX G11 + PAIR Explainability','Dòng “Vì sao” / “Dựa vào” nói rõ căn cứ để người nhà tự kiểm, tin đúng mức thay vì tin tối đa.',(c==='s4'&&L<=2)||(c==='s2'&&L===2&&['suggested','saved'].includes(stage))],
+  [4,'PAIR · đường sang người thật','Nút “Nói chuyện với dược sĩ” có mặt ở mọi phản hồi; chuyển kèm tóm tắt nên khách không phải kể lại.',true],
+  [5,'HAX G10 + G9 · thu hẹp khi nghi ngờ, sửa dễ','Đúng MỘT câu hỏi chip trước khi thẻ thuốc xuất hiện; chip là cách trả lời và cũng là cách sửa.',c==='s2'&&L===2],
+  [6,'PAIR Explainability + G2','Thẻ thuốc chỉ hiện sau cổng, kèm dòng “Dựa vào” và lời nhắc “không tư vấn liều qua chat”.',c==='s2'&&L===2&&['suggested','saved'].includes(stage)],
+  [7,'HAX G8/G9 · gạt bỏ và sửa dễ','Lưu ghi chú sức khoẻ phải đồng ý, ô không tick sẵn, xoá ngay được — mức tự chủ của luu_ghi_chu_suc_khoe.',c==='s2'&&L===2&&['suggested','saved'].includes(stage)],
+  [8,'Mức cấm không có nút làm','Thuốc kê đơn: không có nút đặt ở bất kỳ đâu; từ chối kèm hai đường đi hữu ích.',c==='s5'],
+  [9,'Màn hình dược sĩ (bonus T1)','Ca được chuyển đến kèm tóm tắt + cờ “CẦN HỎI liều &amp; giờ uống” — dược sĩ hỏi 2 câu thay vì khai lại từ đầu.',(c==='s4'&&(L===3||stage==='transferred'))||(stage==='transferred')],
+  [10,'Bảng mức tự chủ theo cost-of-error','Bảng 5 tool đổi theo toggle: so sánh cái giá từng mức ngay trên màn hình.',true]];
+ $('#annlist').innerHTML=A.filter(a=>a[3]).map(a=>`<li><span class="n">${a[0]}</span><b>${a[1]}</b> — ${a[2]}</li>`).join('')||'<li class="empty">Chưa có chú thích cho ca này.</li>';
+}
+function render(){chat();tools();pharm();ann()}
+function setCase(x){c=x;stage='start';a1=a2=null;saved=false;accepted=false;document.querySelectorAll('[data-c]').forEach(b=>b.classList.toggle('on',b.dataset.c===x));render()}
+function setLevel(x){L=+x;stage='start';document.querySelectorAll('[data-l]').forEach(b=>b.classList.toggle('on',+b.dataset.l===L));render()}
+function to(s){stage=s;render()}
+function ans1(x){a1=x;stage=x==='me'?'ask2':'transferred';render()}
+function ans2(x){a2=x;stage=x==='none'?'suggested':'transferred';render()}
+function save(){saved=true;render()}
+function unsave(){saved=false;render()}
+document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>setCase(b.dataset.c));
+document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>setLevel(b.dataset.l));
+$('#ann').onchange=e=>{document.body.classList.toggle('hide-n',!e.target.checked);if(!e.target.checked)document.body.classList.add('hide-n')};
+render();
+</script></body></html>
